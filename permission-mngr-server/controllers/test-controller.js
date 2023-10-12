@@ -1,7 +1,7 @@
 // Controller for testing authentication
 
 const testAuth = (req, res, next) => {
-    res.json({message: 'User is logged in.'})
-}
+	res.json({ message: 'User is logged in.' });
+};
 
-module.exports = {testAuth}
+module.exports = { testAuth };

@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const templateController = require("../controllers/template-controller")
+const templateController = require('../controllers/template-controller');
 
 router.get('/all-templates', templateController.retrieveAllTemplates);
 router.post('/create-template', templateController.createTemplate);

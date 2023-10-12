@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const officeController = require("../controllers/office-controller")
+const officeController = require('../controllers/office-controller');
 
 router.get('/all-offices', officeController.retrieveAllOffices);
 router.post('/create-office', officeController.createOffice);
