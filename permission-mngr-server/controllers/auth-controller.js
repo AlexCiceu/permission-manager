@@ -13,10 +13,12 @@ const login = async (req, res, next) => {
             }
         })
         
-        if(retrievedUser != null) {
+        if(retrievedUser !== null) {
             if(data.password === retrievedUser.password) {
-                req.session.user = retrievedUser.email;
-          
+                
+                // Naive session based implementation
+                req.session.user = retrievedUser;
+                
                 res.json({
                   mesage: "Login successful.",
                 })

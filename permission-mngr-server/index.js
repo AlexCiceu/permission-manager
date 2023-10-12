@@ -5,6 +5,9 @@ const cors = require("cors");
 // Routes imports
 const testRoute = require("./routes/test-route");
 const authRoute = require("./routes/auth-route");
+const officeRoute = require("./routes/office-route");
+const userRoute = require("./routes/user-route");
+const templateRoute = require("./routes/template-route");
 
 // General server config
 const app = express();
@@ -29,7 +32,8 @@ app.use(express.json())
 	
 // Authentication and Authorization Middleware
 const auth = (req, res, next) => {
-    if (req.session) {
+    // Naive implementation
+    if (req.session && req.session.user) {
         return next();
     } else {
         return res.sendStatus(401);
@@ -38,6 +42,9 @@ const auth = (req, res, next) => {
 
 // Protected Routes
 app.use('/test', auth, testRoute);
+app.use('/office', auth, officeRoute)
+app.use('/user', auth, userRoute)
+app.use('/template', auth, templateRoute)
 
 // Unprotected Routes
 app.use('/auth', authRoute)

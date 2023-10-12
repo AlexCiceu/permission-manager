@@ -89,7 +89,6 @@ async function main() {
         }
     })
     console.log({templateReadOnly});
-
 };
 
 main()

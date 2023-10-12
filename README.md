@@ -22,3 +22,7 @@ Client will run on `:3000` and server will run on `:4000`
 ## Hardcoded data
 
 Run `yarn prisma db seed` to add the initial hardcoded data
+
+## Testing with Postman
+
+Testing with Postman is available, however due to the authentication being session based, please use the Interceptor plugin for your browser and also use Sync Cookies in Postman settings.
