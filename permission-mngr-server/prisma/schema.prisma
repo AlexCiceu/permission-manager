@@ -39,10 +39,21 @@ model User {
 
   office   Office? @relation(fields: [officeId], references: [id])
   officeId Int?
+
+  permissionTemplate   PermissionTemplate? @relation(fields: [permissionTemplateId], references: [id])
+  permissionTemplateId Int?
 }
 
 model PermissionTemplate {
-  id           Int      @id @default(autoincrement())
-  templateName String
-  permissions  String[]
+  id           Int           @id @default(autoincrement())
+  templateName String        @unique
+  permissions  Permissions[]
+
+  users User[]
+}
+
+enum Permissions {
+  READ
+  WRITE
+  DELETE
 }
