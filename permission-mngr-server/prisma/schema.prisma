@@ -10,10 +10,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Company {
+  id      Int    @id @default(autoincrement())
+  name    String @unique
+  website String
+  email   String
+}
+
+model Office {
+  id             Int     @id @default(autoincrement())
+  name           String  @unique
+  street         String
+  city           String
+  country        String
+  phone          Int
+  email          String
+  isMasterOffice Boolean @default(false)
+
+  users User[]
+}
+
 model User {
   id       Int     @id @default(autoincrement())
   email    String  @unique
   name     String?
-  isAdmin  Boolean @default(false)
   password String
+  isAdmin  Boolean @default(false)
+
+  office   Office? @relation(fields: [officeId], references: [id])
+  officeId Int?
+}
+
+model PermissionTemplate {
+  id           Int      @id @default(autoincrement())
+  templateName String
+  permissions  String[]
 }

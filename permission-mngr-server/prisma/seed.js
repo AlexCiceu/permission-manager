@@ -2,18 +2,69 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-    const jdoe = await prisma.user.upsert({
-        where: {email: 'jdoe@mail.com'},
+    const company = await prisma.company.upsert({
+        where: {name: 'Big Corporation'},
         update: {},
         create: {
-            email: 'jdoe@mail.com',
-            name: 'John Doe',
+            name: 'Big Corporation',
+            website: 'www.bigcorp.com',
+            email: 'bigco@mail.com',
+        }
+    })
+    console.log({company});
+
+    const office = await prisma.office.upsert({
+        where: {name: 'Big Corp Main Office'},
+        update: {},
+        create: {
+            name: 'Big Corp Main Office',
+            email: 'mainofficeo@mail.com',
+            street: 'Big Co. Office Lane nr. 2',
+            city: 'Bucharest',
+            country: 'Romania',
+            phone: 0o40321321,
+            isMasterOffice: true,
+        }
+    })
+    console.log({office});
+
+    const admin = await prisma.user.upsert({
+        where: {email: 'admin@mail.com'},
+        update: {},
+        create: {
+            email: 'admin@mail.com',
+            name: 'Admin Joe',
             isAdmin: true,
             password: 'pass',
+            officeId: 1,
         }
     });
 
-    console.log({jdoe});
+    const user1 = await prisma.user.upsert({
+        where: {email: 'user1@mail.com'},
+        update: {},
+        create: {
+            email: 'user1@mail.com',
+            name: 'User Jeff',
+            isAdmin: false,
+            password: 'pass',
+            officeId: 1,
+        }
+    });
+    console.log({user1});
+
+    const user2 = await prisma.user.upsert({
+        where: {email: 'user2@mail.com'},
+        update: {},
+        create: {
+            email: 'user2@mail.com',
+            name: 'User Frank',
+            isAdmin: false,
+            password: 'pass',
+            officeId: 1,
+        }
+    });
+    console.log({user2});
 };
 
 main()
