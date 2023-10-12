@@ -1,4 +1,4 @@
-// Cntroller for testing authentication
+// Controller for testing authentication
 
 const testAuth = (req, res, next) => {
     res.json({message: 'User is logged in.'})
