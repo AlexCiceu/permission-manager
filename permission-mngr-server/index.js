@@ -8,6 +8,7 @@ const authRoute = require('./routes/auth-route');
 const officeRoute = require('./routes/office-route');
 const userRoute = require('./routes/user-route');
 const templateRoute = require('./routes/template-route');
+const companyRoute = require('./routes/company-route');
 
 // General server config
 const app = express();
@@ -47,6 +48,7 @@ app.use('/test', auth, testRoute);
 app.use('/office', auth, officeRoute);
 app.use('/user', auth, userRoute);
 app.use('/template', auth, templateRoute);
+app.use('/company', auth, companyRoute);
 
 // Unprotected Routes
 app.use('/auth', authRoute);

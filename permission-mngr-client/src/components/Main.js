@@ -26,6 +26,11 @@ const drawerWidth = 240;
 
 export default function Main({ isUserLoggedIn, setIsUserLoggedIn }) {
 	const navigate = useNavigate();
+	const name = JSON.parse(sessionStorage.getItem('user'))?.name;
+
+	const role = JSON.parse(sessionStorage.getItem('user'))?.isAdmin
+		? 'Admin'
+		: 'User';
 
 	return (
 		<Box sx={{ display: 'flex' }}>
@@ -36,7 +41,7 @@ export default function Main({ isUserLoggedIn, setIsUserLoggedIn }) {
 			>
 				<Toolbar>
 					<Typography variant='h6' noWrap component='div'>
-						Clipped drawer
+						{name} - {role}
 					</Typography>
 				</Toolbar>
 			</AppBar>
@@ -114,7 +119,6 @@ export default function Main({ isUserLoggedIn, setIsUserLoggedIn }) {
 			</Drawer>
 			<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
-
 				<Routes>
 					<Route path='company' element={<Company />} />
 					<Route path='office' element={<Office />} />
