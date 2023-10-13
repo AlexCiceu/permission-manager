@@ -13,7 +13,12 @@ const companyRoute = require('./routes/company-route');
 // General server config
 const app = express();
 
-app.use(cors());
+app.use(
+	cors({
+		credentials: true,
+		origin: 'http://localhost:3000',
+	})
+);
 app.use(
 	session({
 		secret: 'someWhateverSecret',
@@ -36,6 +41,7 @@ app.use(express.json());
 // Authentication and Authorization Middleware
 const auth = (req, res, next) => {
 	// Naive implementation
+	console.log(req.session);
 	if (req.session && req.session.user) {
 		return next();
 	} else {

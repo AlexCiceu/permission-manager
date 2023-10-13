@@ -17,6 +17,7 @@ const login = async (req, res, next) => {
 			if (data.password === retrievedUser.password) {
 				// Naive session based implementation
 				req.session.user = retrievedUser;
+				console.log(req.session);
 
 				res.json({
 					message: 'Login successful.',

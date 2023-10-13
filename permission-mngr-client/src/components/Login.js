@@ -17,10 +17,14 @@ const Login = ({ setIsUserLoggedIn }) => {
 
 	const handleLogin = async () => {
 		await axios
-			.post('http://localhost:4000/auth/login', {
-				email: email,
-				password: password,
-			})
+			.post(
+				'http://localhost:4000/auth/login',
+				{
+					email: email,
+					password: password,
+				},
+				{ withCredentials: true }
+			)
 			.then((res) => {
 				enqueueSnackbar(res.data.message, {
 					variant: 'success',
