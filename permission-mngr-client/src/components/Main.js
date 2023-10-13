@@ -16,7 +16,11 @@ import BusinessIcon from '@mui/icons-material/Business';
 import StoreIcon from '@mui/icons-material/Store';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { handleLogout } from '../utils/Authentication';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Routes, Route } from 'react-router-dom';
+import Office from './Office';
+import Company from './Company';
+import User from './User';
+import Template from './Template';
 
 const drawerWidth = 240;
 
@@ -110,6 +114,13 @@ export default function Main({ isUserLoggedIn, setIsUserLoggedIn }) {
 			</Drawer>
 			<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
+
+				<Routes>
+					<Route path='company' element={<Company />} />
+					<Route path='office' element={<Office />} />
+					<Route path='user' element={<User />} />
+					<Route path='template' element={<Template />} />
+				</Routes>
 			</Box>
 		</Box>
 	);
