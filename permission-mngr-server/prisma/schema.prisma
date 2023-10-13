@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Company {
-  id      Int    @id @default(autoincrement())
-  name    String @unique
-  website String
-  email   String
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  website     String?
+  email       String?
 }
 
 model Office {

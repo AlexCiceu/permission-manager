@@ -1,6 +1,14 @@
 import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import {
+	Button,
+	Card,
+	CardActions,
+	CardContent,
+	CardMedia,
+	Typography,
+} from '@mui/material';
 
 const Company = () => {
 	const { enqueueSnackbar } = useSnackbar();
@@ -30,7 +38,42 @@ const Company = () => {
 		retrieveCompanyInfo();
 	}, []);
 
-	return <div>Company</div>;
+	return (
+		<div>
+			<Card sx={{ maxWidth: '100%' }}>
+				<CardMedia
+					sx={{ height: 140 }}
+					image='/company.jpg'
+					title='big corp'
+				/>
+				<CardContent>
+					<Typography gutterBottom variant='h4' component='div'>
+						{companyInfo?.name}
+					</Typography>
+					<Typography variant='h6' color='text.secondary'>
+						{companyInfo?.email}
+					</Typography>
+					<Typography
+						variant='body1'
+						color='text.primary'
+						align='justify'
+						sx={{ mt: 3 }}
+					>
+						{companyInfo?.description}
+					</Typography>
+				</CardContent>
+				<CardActions>
+					<Button
+						target='_blank'
+						component='a'
+						href={companyInfo?.website}
+					>
+						Company Info
+					</Button>
+				</CardActions>
+			</Card>
+		</div>
+	);
 };
 
 export default Company;

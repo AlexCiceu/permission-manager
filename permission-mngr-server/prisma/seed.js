@@ -7,8 +7,10 @@ async function main() {
 		update: {},
 		create: {
 			name: 'Big Corporation',
-			website: 'www.bigcorp.com',
+			website: 'http://www.bigcorp.com',
 			email: 'bigco@mail.com',
+			description:
+				"Welcome to Big Corporation, where synergy meets innovation, and paradigm-shifting solutions are our daily bread. At Big Corp, we don't just think outside the box \u2013 we've redefined the very concept of boxes. As a cutting-edge powerhouse in the business landscape, we leverage a robust ecosystem of disruptive technologies, fostering a culture of proactive ideation that transcends traditional boundaries.",
 		},
 	});
 	console.log({ company });
