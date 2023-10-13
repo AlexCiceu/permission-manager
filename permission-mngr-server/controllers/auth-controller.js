@@ -19,7 +19,8 @@ const login = async (req, res, next) => {
 				req.session.user = retrievedUser;
 
 				res.json({
-					mesage: 'Login successful.',
+					message: 'Login successful.',
+					user: req.session.user,
 				});
 			} else {
 				return res.status(401).json({
