@@ -32,6 +32,9 @@ const Main = ({ setIsUserLoggedIn }) => {
 	const name = parsedUserData?.name;
 	const role = parsedUserData?.isAdmin ? 'Admin' : 'User';
 	const permissions = parsedUserData?.permissionTemplate?.permissions;
+	const isMasterOffice = parsedUserData?.office?.isMasterOffice
+		? 'Master Office'
+		: 'Office';
 
 	return (
 		<Box sx={{ display: 'flex' }}>
@@ -43,7 +46,8 @@ const Main = ({ setIsUserLoggedIn }) => {
 				<Toolbar>
 					<Typography variant='h6' noWrap component='div'>
 						{name} - <Chip label={role} color='secondary' /> -{' '}
-						<Chip label={permissions?.join(' ')} color='success' />
+						<Chip label={permissions?.join(' ')} color='success' />{' '}
+						- <Chip label={isMasterOffice} color='warning'></Chip>
 					</Typography>
 				</Toolbar>
 			</AppBar>
@@ -103,7 +107,7 @@ const Main = ({ setIsUserLoggedIn }) => {
 						<ListItem key={'logout'} disablePadding>
 							<ListItemButton
 								onClick={() => {
-									// Navigate can't be used as a top level function and must be inside a React component otherwise it would be handled inside handleLogout()
+									// navigate can't be used as a top level function and must be inside a React component otherwise it would be handled inside handleLogout()
 									handleLogout(setIsUserLoggedIn);
 									navigate('/');
 								}}

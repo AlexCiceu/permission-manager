@@ -7,6 +7,7 @@ import { React, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { storeAuthenticatedUserInSession } from '../utils/Authentication';
 import { useNavigate } from 'react-router-dom';
+import { axiosErrorHandling } from '../utils/ApiCalls';
 
 const Login = ({ setIsUserLoggedIn }) => {
 	const { enqueueSnackbar } = useSnackbar();

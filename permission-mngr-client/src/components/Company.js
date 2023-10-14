@@ -15,7 +15,7 @@ const Company = () => {
 	const { enqueueSnackbar } = useSnackbar();
 	const [companyInfo, setCompanyInfo] = useState();
 
-	const retrieveCompanyInfo = useCallback(async () => {
+	const retrieveCompanyInfo = async () => {
 		await axios
 			.get('http://localhost:4000/company/retrieve-company-info', {
 				withCredentials: true,
@@ -26,7 +26,7 @@ const Company = () => {
 			.catch((err) => {
 				axiosErrorHandling(err, enqueueSnackbar);
 			});
-	}, []);
+	};
 
 	useEffect(() => {
 		// Will run twice due to React.StrictMode in index.js while running the client as dev - expected behavior

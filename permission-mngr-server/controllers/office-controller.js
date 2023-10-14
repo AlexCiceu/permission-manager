@@ -54,24 +54,29 @@ const retrieveCurrentOffice = async (req, res, next) => {
 };
 
 const createOffice = async (req, res, next) => {
-	data = req.body;
+	data = req.body.data;
 
 	try {
 		if (req.session.user.isAdmin) {
 			await prisma.office.create({
 				data: {
-					name: data.name,
-					street: data.street,
-					city: data.city,
-					country: data.country,
-					phone: parseInt(data.phone),
-					email: data.email,
+					name: data.newOffice.name,
+					street: data.newOffice.street,
+					city: data.newOffice.city,
+					country: data.newOffice.country,
+					phone: parseInt(data.newOffice.phone),
+					email: data.newOffice.email,
 					isMasterOffice: false,
+					users: {
+						connect: data.newOffice.users.map((x) => {
+							return { id: x };
+						}),
+					},
 				},
 			});
 
 			return res.json({
-				message: `Created office - ${data.name}.`,
+				message: `Created office - ${data.newOffice.name}.`,
 			});
 		}
 	} catch (e) {

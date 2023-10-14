@@ -10,7 +10,7 @@ const login = async (req, res, next) => {
 		const retrievedUser = await prisma.user.findUnique({
 			include: {
 				permissionTemplate: true,
-				office: false,
+				office: true,
 			},
 			where: {
 				email: data.email,
