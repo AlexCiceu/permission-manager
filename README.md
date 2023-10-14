@@ -2,7 +2,7 @@
 
 Permission Manager app for take-home interview.
 
-## Instalation
+## InstalLation
 
 To install all dependencies run `yarn install` inside .`/permission-mngr-client` and `./permission-mngr-server` folders respectively.
 
@@ -11,6 +11,10 @@ Add a .env file at the root of the `./permission-mngr-server` folder with the fo
 
 In Postgres, we need a DB named `template_manager` as per the config above.
 
+## Hardcoded data
+Run `yarn prisma reset` to initialize the migration files (might be other command? not too sure)
+Run `yarn prisma db seed` to add the initial hardcoded data
+
 ## Running
 
 To run both client and server, from inside `./permission-mngr-server` you can run `yarn start` since scripts were set up in `package.json` to run those in parallel
@@ -18,10 +22,6 @@ To run both client and server, from inside `./permission-mngr-server` you can ru
 ## Ports
 
 Client will run on `:3000` and server will run on `:4000`
-
-## Hardcoded data
-
-Run `yarn prisma db seed` to add the initial hardcoded data
 
 ## Testing with Postman
 
