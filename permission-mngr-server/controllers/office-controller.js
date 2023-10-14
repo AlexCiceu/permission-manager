@@ -76,7 +76,7 @@ const createOffice = async (req, res, next) => {
 			});
 
 			return res.json({
-				message: `Created office - ${data.newOffice.name}.`,
+				message: `Created office - ${data.newOffice.name}`,
 			});
 		}
 	} catch (e) {
@@ -106,7 +106,7 @@ const updateOffice = async (req, res, next) => {
 			});
 
 			return res.json({
-				message: `Updated office - ${data.name}.`,
+				message: `Updated office - ${data.name}`,
 			});
 		}
 	} catch (e) {
@@ -129,7 +129,7 @@ const deleteOffice = async (req, res, next) => {
 			});
 
 			return res.json({
-				message: `Deleted office - ${data.officeId}.`,
+				message: `Deleted office - ${data.officeId}`,
 			});
 		}
 	} catch (e) {

@@ -75,15 +75,6 @@ const Main = ({ setIsUserLoggedIn }) => {
 								<ListItemText primary={'Company'} />
 							</ListItemButton>
 						</ListItem>
-						<ListItem key={'office'} disablePadding>
-							<ListItemButton onClick={() => navigate('/office')}>
-								{' '}
-								<ListItemIcon>
-									<StoreIcon />
-								</ListItemIcon>
-								<ListItemText primary={'Office'} />
-							</ListItemButton>
-						</ListItem>
 						<ListItem key={'users'} disablePadding>
 							<ListItemButton onClick={() => navigate('/user')}>
 								{' '}
@@ -91,6 +82,15 @@ const Main = ({ setIsUserLoggedIn }) => {
 									<PeopleIcon />
 								</ListItemIcon>
 								<ListItemText primary={'Users'} />
+							</ListItemButton>
+						</ListItem>
+						<ListItem key={'office'} disablePadding>
+							<ListItemButton onClick={() => navigate('/office')}>
+								{' '}
+								<ListItemIcon>
+									<StoreIcon />
+								</ListItemIcon>
+								<ListItemText primary={'Office'} />
 							</ListItemButton>
 						</ListItem>
 						<ListItem key={'templates'} disablePadding>

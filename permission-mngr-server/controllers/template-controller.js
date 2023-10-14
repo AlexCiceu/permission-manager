@@ -34,7 +34,7 @@ const createTemplate = async (req, res, next) => {
 		});
 
 		return res.json({
-			message: `Created Permission Template - ${data.newTemplate.templateName}.`,
+			message: `Created Permission Template - ${data.newTemplate.templateName}`,
 		});
 	} catch (e) {
 		return res.status(500).json({
