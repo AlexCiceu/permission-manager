@@ -40,14 +40,7 @@ const Login = ({ setIsUserLoggedIn }) => {
 				navigate('/company');
 			})
 			.catch((err) => {
-				enqueueSnackbar(err?.response?.data?.message, {
-					variant: 'error',
-					autoHideDuration: 5000,
-					anchorOrigin: {
-						vertical: 'bottom',
-						horizontal: 'center',
-					},
-				});
+				axiosErrorHandling(err, enqueueSnackbar);
 			});
 	};
 
