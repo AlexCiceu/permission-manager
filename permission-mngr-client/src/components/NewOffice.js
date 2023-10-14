@@ -100,6 +100,18 @@ const NewOffice = ({
 				handleSuccessPopup(res.data.message);
 				handleClose();
 				retrieveAllOffices();
+
+				// Reset the state of the form
+				setNewOffice({
+					name: '',
+					street: '',
+					city: '',
+					country: '',
+					phone: '',
+					email: '',
+					users: [],
+				});
+				setPersonName([]);
 			})
 			.catch((err) => {
 				axiosErrorHandling(err, enqueueSnackbar);
