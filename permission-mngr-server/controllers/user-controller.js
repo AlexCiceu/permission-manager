@@ -3,10 +3,6 @@ const { PrismaClient, Permissions } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const retrieveAllUsers = async (req, res, next) => {
-	const userPermissions = await permissions.retrieveUserPermissions(
-		req.session.user.permissionTemplateId
-	);
-
 	try {
 		let retrievedUsers;
 
@@ -49,6 +45,7 @@ const retrieveAllUsers = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
 	data = req.body.data;
+
 	const userPermissions = await permissions.retrieveUserPermissions(
 		req.session.user.permissionTemplateId
 	);

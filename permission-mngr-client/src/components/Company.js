@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useCallback } from 'react';
+import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { axiosErrorHandling } from '../utils/ApiCalls';
