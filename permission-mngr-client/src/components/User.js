@@ -116,29 +116,18 @@ const User = () => {
 												},
 										}}
 									>
-										{permissions.includes('WRITE') ? (
-											<TableCell
-												component='th'
-												scope='row'
-											>
-												<Link
-													href='#'
-													onClick={() => {
-														setOpenEdit(true);
-														setClickedRow(row);
-													}}
-												>
-													{row.name}
-												</Link>
-											</TableCell>
-										) : (
-											<TableCell
-												component='th'
-												scope='row'
+										<TableCell component='th' scope='row'>
+											<Link
+												href='#'
+												onClick={() => {
+													setOpenEdit(true);
+													setClickedRow(row);
+												}}
 											>
 												{row.name}
-											</TableCell>
-										)}
+											</Link>
+										</TableCell>
+
 										<TableCell align='right'>
 											{row.email}
 										</TableCell>

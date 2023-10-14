@@ -43,6 +43,10 @@ const NewUser = ({
 }) => {
 	const { enqueueSnackbar } = useSnackbar();
 
+	const parsedUserData = JSON.parse(sessionStorage.getItem('user'));
+	const permissions = parsedUserData?.permissionTemplate?.permissions;
+	const canEdit = permissions.includes('WRITE');
+
 	const handleClose = () => setOpen(false);
 
 	const [templates, setTemplates] = useState([]);
@@ -188,6 +192,7 @@ const NewUser = ({
 							sx={{ m: 'auto', mt: 1 }}
 							control={
 								<Switch
+									disabled={!canEdit}
 									checked={newUser?.isAdmin}
 									onChange={() => {
 										setNewUser((prev) => {
@@ -228,6 +233,7 @@ const NewUser = ({
 								sx={{ mt: 1 }}
 								id='select-office'
 								value={selectedOffice.value}
+								disabled={!canEdit}
 								onChange={(e) => {
 									handleOfficeChange(e);
 								}}
@@ -250,6 +256,7 @@ const NewUser = ({
 							required={true}
 							id='outlined-required'
 							label='Name'
+							disabled={!canEdit}
 							onChange={(e) => {
 								setNewUser((prev) => {
 									return {
@@ -265,6 +272,7 @@ const NewUser = ({
 							required={true}
 							id='outlined-required'
 							label='E-Mail'
+							disabled={!canEdit}
 							onChange={(e) => {
 								setNewUser((prev) => {
 									return {
@@ -280,6 +288,7 @@ const NewUser = ({
 							required={true}
 							id='outlined-required'
 							label='Password'
+							disabled={!canEdit}
 							onChange={(e) => {
 								setNewUser((prev) => {
 									return {
