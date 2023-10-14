@@ -21,16 +21,17 @@ import Office from './Office';
 import Company from './Company';
 import User from './User';
 import Template from './Template';
+import { Chip } from '@mui/material';
 
 const drawerWidth = 240;
 
-export default function Main({ isUserLoggedIn, setIsUserLoggedIn }) {
+const Main = ({ setIsUserLoggedIn }) => {
 	const navigate = useNavigate();
-	const name = JSON.parse(sessionStorage.getItem('user'))?.name;
 
-	const role = JSON.parse(sessionStorage.getItem('user'))?.isAdmin
-		? 'Admin'
-		: 'User';
+	const parsedUserData = JSON.parse(sessionStorage.getItem('user'));
+	const name = parsedUserData?.name;
+	const role = parsedUserData?.isAdmin ? 'Admin' : 'User';
+	const permissions = parsedUserData?.permissionTemplate?.permissions;
 
 	return (
 		<Box sx={{ display: 'flex' }}>
@@ -41,7 +42,8 @@ export default function Main({ isUserLoggedIn, setIsUserLoggedIn }) {
 			>
 				<Toolbar>
 					<Typography variant='h6' noWrap component='div'>
-						{name} - {role}
+						{name} - <Chip label={role} color='secondary' /> -{' '}
+						<Chip label={permissions?.join(' ')} color='success' />
 					</Typography>
 				</Toolbar>
 			</AppBar>
@@ -101,11 +103,9 @@ export default function Main({ isUserLoggedIn, setIsUserLoggedIn }) {
 						<ListItem key={'logout'} disablePadding>
 							<ListItemButton
 								onClick={() => {
+									// Navigate can't be used as a top level function and must be inside a React component otherwise it would be handled inside handleLogout()
+									handleLogout(setIsUserLoggedIn);
 									navigate('/');
-									handleLogout(
-										isUserLoggedIn,
-										setIsUserLoggedIn
-									);
 								}}
 							>
 								<ListItemIcon>
@@ -128,4 +128,6 @@ export default function Main({ isUserLoggedIn, setIsUserLoggedIn }) {
 			</Box>
 		</Box>
 	);
-}
+};
+
+export default Main;

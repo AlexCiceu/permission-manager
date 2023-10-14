@@ -23,6 +23,36 @@ const retrieveAllOffices = async (req, res, next) => {
 	}
 };
 
+// Unused currently, might remove since User can get current office from list of all offices based on officeId
+const retrieveCurrentOffice = async (req, res, next) => {
+	try {
+		const currentOffice = await prisma.user.findFirst({
+			include: {
+				office: true,
+			},
+			where: {
+				id: req.session.user.id,
+			},
+		});
+
+		if (currentOffice !== null) {
+			return res.json({
+				offices: currentOffice,
+			});
+		} else {
+			return res.json({
+				message: 'User is not part of an office.',
+				offices: {},
+			});
+		}
+	} catch (e) {
+		return res.status(500).json({
+			message: `Something went wrong.`,
+			errorCode: e.code,
+		});
+	}
+};
+
 const createOffice = async (req, res, next) => {
 	data = req.body;
 
@@ -107,6 +137,7 @@ const deleteOffice = async (req, res, next) => {
 
 module.exports = {
 	retrieveAllOffices,
+	retrieveCurrentOffice,
 	createOffice,
 	updateOffice,
 	deleteOffice,

@@ -4,12 +4,9 @@ export const storeAuthenticatedUserInSession = (user) => {
 	sessionStorage.setItem('user', JSON.stringify(user));
 };
 
-export const handleLogout = (isUserLoggedIn, setIsUserLoggedIn) => {
-	if (!isUserLoggedIn) {
-		return;
-	}
-	sessionStorage.clear();
+export const handleLogout = (setIsUserLoggedIn) => {
 	setIsUserLoggedIn(false);
+	sessionStorage.clear();
 };
 
 export const isUserAuthenticated = () => {
