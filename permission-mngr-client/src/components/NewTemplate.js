@@ -110,13 +110,6 @@ const NewTemplate = ({
 			});
 	};
 
-	useEffect(() => {
-		console.log('newTemplate', newTemplate);
-		console.log(
-			Object.values(newTemplate).some((x) => x === '' || x.length === 0)
-		);
-	}, [newTemplate]);
-
 	return (
 		<div>
 			<Modal

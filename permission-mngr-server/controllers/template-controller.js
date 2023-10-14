@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const retrieveAllTemplates = async (req, res, next) => {
 	try {
 		const retrievedTemplates = await prisma.permissionTemplate.findMany();
-		console.log(retrievedTemplates);
+
 		if (retrievedTemplates !== null) {
 			return res.json({
 				templates: retrievedTemplates,
@@ -44,7 +44,30 @@ const createTemplate = async (req, res, next) => {
 	}
 };
 
-const updateTemplate = async (req, res, next) => {};
+const updateTemplate = async (req, res, next) => {
+	data = req.body.data;
+
+	try {
+		await prisma.permissionTemplate.update({
+			where: {
+				id: parseInt(req.query.id),
+			},
+			data: {
+				templateName: data.newTemplate.templateName,
+				permissions: data.newTemplate.permissions,
+			},
+		});
+
+		return res.json({
+			message: `Updated Permission Template.`,
+		});
+	} catch (e) {
+		return res.status(500).json({
+			message: `Something went wrong.`,
+			errorCode: e.code,
+		});
+	}
+};
 
 const deleteTemplate = async (req, res, next) => {
 	try {

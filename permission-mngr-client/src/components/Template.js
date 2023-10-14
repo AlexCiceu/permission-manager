@@ -5,7 +5,6 @@ import { axiosErrorHandling } from '../utils/ApiCalls';
 import {
 	Button,
 	Card,
-	CardContent,
 	CardMedia,
 	Chip,
 	Paper,
@@ -16,13 +15,17 @@ import {
 	TableHead,
 	TableRow,
 	Divider,
+	Link,
 } from '@mui/material';
 import NewTemplate from './NewTemplate';
+import EditTemplate from './EditTemplate';
 
 const Template = () => {
 	const { enqueueSnackbar } = useSnackbar();
 	const [templates, setTemplates] = useState([]);
 	const [open, setOpen] = useState(false);
+	const [openEdit, setOpenEdit] = useState(false);
+	const [clickedRow, setClickedRow] = useState({});
 
 	const retrieveAllTemplates = async () => {
 		await axios
@@ -117,7 +120,15 @@ const Template = () => {
 										}}
 									>
 										<TableCell component='th' scope='row'>
-											{row.templateName}
+											<Link
+												href='#'
+												onClick={() => {
+													setOpenEdit(true);
+													setClickedRow(row);
+												}}
+											>
+												{row.templateName}
+											</Link>
 										</TableCell>
 										<TableCell align='right'>
 											{row.permissions.map((el) => {
@@ -165,6 +176,13 @@ const Template = () => {
 					setOpen={setOpen}
 					retrieveAllTemplates={retrieveAllTemplates}
 					handleSuccessPopup={handleSuccessPopup}
+				/>
+				<EditTemplate
+					open={openEdit}
+					setOpen={setOpenEdit}
+					retrieveAllTemplates={retrieveAllTemplates}
+					handleSuccessPopup={handleSuccessPopup}
+					templateInfo={clickedRow}
 				/>
 			</div>
 		</div>
