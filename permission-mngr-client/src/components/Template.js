@@ -16,12 +16,18 @@ import {
 	TableRow,
 	Divider,
 	Link,
+	CardContent,
+	Typography,
 } from '@mui/material';
 import NewTemplate from './NewTemplate';
 import EditTemplate from './EditTemplate';
 
 const Template = () => {
 	const { enqueueSnackbar } = useSnackbar();
+
+	const parsedUserData = JSON.parse(sessionStorage.getItem('user'));
+	const permissions = parsedUserData?.permissionTemplate?.permissions;
+
 	const [templates, setTemplates] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [openEdit, setOpenEdit] = useState(false);
@@ -46,7 +52,6 @@ const Template = () => {
 				withCredentials: true,
 			})
 			.then((res) => {
-				console.log(res.message);
 				handleSuccessPopup(res.data.message);
 				retrieveAllTemplates();
 			})
@@ -69,7 +74,6 @@ const Template = () => {
 	};
 
 	const handleSuccessPopup = (message) => {
-		console.log(message);
 		enqueueSnackbar(message, {
 			variant: 'success',
 			autoHideDuration: 5000,
@@ -96,7 +100,7 @@ const Template = () => {
 					/>
 				</Card>
 				<Divider />
-				{templates && (
+				{permissions.includes('READ') ? (
 					<TableContainer component={Paper}>
 						<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 							<TableHead>
@@ -119,17 +123,29 @@ const Template = () => {
 												},
 										}}
 									>
-										<TableCell component='th' scope='row'>
-											<Link
-												href='#'
-												onClick={() => {
-													setOpenEdit(true);
-													setClickedRow(row);
-												}}
+										{permissions.includes('WRITE') ? (
+											<TableCell
+												component='th'
+												scope='row'
+											>
+												<Link
+													href='#'
+													onClick={() => {
+														setOpenEdit(true);
+														setClickedRow(row);
+													}}
+												>
+													{row.templateName}
+												</Link>
+											</TableCell>
+										) : (
+											<TableCell
+												component='th'
+												scope='row'
 											>
 												{row.templateName}
-											</Link>
-										</TableCell>
+											</TableCell>
+										)}
 										<TableCell align='right'>
 											{row.permissions.map((el) => {
 												return (
@@ -145,6 +161,11 @@ const Template = () => {
 										</TableCell>
 										<TableCell align='right'>
 											<Button
+												disabled={
+													!permissions.includes(
+														'DELETE'
+													)
+												}
 												onClick={() => {
 													deleteTemplate(row.id);
 												}}
@@ -161,6 +182,11 @@ const Template = () => {
 												onClick={() => {
 													setOpen(true);
 												}}
+												disabled={
+													!permissions.includes(
+														'WRITE'
+													)
+												}
 											>
 												Create New Template
 											</Button>
@@ -170,6 +196,18 @@ const Template = () => {
 							</TableBody>
 						</Table>
 					</TableContainer>
+				) : (
+					<Card sx={{ maxWidth: '100%' }}>
+						<CardContent>
+							<Typography
+								gutterBottom
+								variant='h4'
+								component='div'
+							>
+								No Permissions to see data
+							</Typography>
+						</CardContent>
+					</Card>
 				)}
 				<NewTemplate
 					open={open}

@@ -76,7 +76,6 @@ const NewUser = ({
 	}, [userInfo]);
 
 	const handleEditChanges = async () => {
-		console.log(newUser);
 		await axios
 			.patch(
 				'http://localhost:4000/user/update-user?id=' + newUser.id,
@@ -174,10 +173,6 @@ const NewUser = ({
 		retrieveAllTemplates();
 		retrieveAllOffices();
 	}, []);
-
-	useEffect(() => {
-		console.log(newUser);
-	}, [newUser]);
 
 	return (
 		<div>

@@ -26,6 +26,7 @@ const Office = () => {
 	const [open, setOpen] = useState(false);
 
 	const parsedUserData = JSON.parse(sessionStorage.getItem('user'));
+	const permissions = parsedUserData?.permissionTemplate?.permissions;
 	const isAdmin = parsedUserData?.isAdmin;
 	const isMasterOffice = parsedUserData?.office?.isMasterOffice;
 	const currentOffice = parsedUserData?.office;
@@ -80,7 +81,7 @@ const Office = () => {
 				</CardContent>
 			</Card>
 			<Divider />
-			{offices && (
+			{permissions.includes('READ') ? (
 				<TableContainer component={Paper}>
 					<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 						<TableHead>
@@ -139,6 +140,14 @@ const Office = () => {
 						</TableBody>
 					</Table>
 				</TableContainer>
+			) : (
+				<Card sx={{ maxWidth: '100%' }}>
+					<CardContent>
+						<Typography gutterBottom variant='h4' component='div'>
+							No Permissions to see data
+						</Typography>
+					</CardContent>
+				</Card>
 			)}
 			<NewOffice
 				open={open}

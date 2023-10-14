@@ -90,7 +90,6 @@ const EditTemplate = ({
 	};
 
 	const handleEditChanges = async () => {
-		console.log(newTemplate);
 		await axios
 			.patch(
 				'http://localhost:4000/template/update-template?id=' +

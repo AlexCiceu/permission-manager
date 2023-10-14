@@ -146,7 +146,6 @@ const NewOffice = ({
 	useEffect(() => {
 		// Will run twice due to React.StrictMode in index.js while running the client as dev - expected behavior
 		retrieveAllUsers();
-		console.log(unassignedUsers);
 	}, []);
 
 	return (

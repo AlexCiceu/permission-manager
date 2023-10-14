@@ -85,7 +85,7 @@ const createUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
 	data = req.body.data;
-	console.log(data);
+
 	try {
 		await prisma.user.update({
 			where: {

@@ -6,7 +6,8 @@ import {
 	Button,
 	Card,
 	CardMedia,
-	Chip,
+	CardContent,
+	Typography,
 	Paper,
 	Table,
 	TableBody,
@@ -22,6 +23,10 @@ import NewUser from './NewUser';
 import EditUser from './EditUser';
 
 const User = () => {
+	const parsedUserData = JSON.parse(sessionStorage.getItem('user'));
+	const permissions = parsedUserData?.permissionTemplate?.permissions;
+	const role = parsedUserData?.isAdmin;
+
 	const { enqueueSnackbar } = useSnackbar();
 	const [users, setUsers] = useState([]);
 	const [open, setOpen] = useState(false);
@@ -31,9 +36,13 @@ const User = () => {
 
 	const retrieveAllUsers = async () => {
 		await axios
-			.get('http://localhost:4000/user/all-users', {
-				withCredentials: true,
-			})
+			.get(
+				'http://localhost:4000/user/all-users?officeId=' +
+					(role ? '' : parsedUserData?.officeId),
+				{
+					withCredentials: true,
+				}
+			)
 			.then((res) => {
 				setUsers(res.data.users);
 			})
@@ -48,7 +57,6 @@ const User = () => {
 				withCredentials: true,
 			})
 			.then((res) => {
-				console.log(res.message);
 				handleSuccessPopup(res.data.message);
 				retrieveAllUsers();
 			})
@@ -84,7 +92,7 @@ const User = () => {
 					/>
 				</Card>
 				<Divider />
-				{users && (
+				{permissions.includes('READ') ? (
 					<TableContainer component={Paper}>
 						<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 							<TableHead>
@@ -108,17 +116,29 @@ const User = () => {
 												},
 										}}
 									>
-										<TableCell component='th' scope='row'>
-											<Link
-												href='#'
-												onClick={() => {
-													setOpenEdit(true);
-													setClickedRow(row);
-												}}
+										{permissions.includes('WRITE') ? (
+											<TableCell
+												component='th'
+												scope='row'
+											>
+												<Link
+													href='#'
+													onClick={() => {
+														setOpenEdit(true);
+														setClickedRow(row);
+													}}
+												>
+													{row.name}
+												</Link>
+											</TableCell>
+										) : (
+											<TableCell
+												component='th'
+												scope='row'
 											>
 												{row.name}
-											</Link>
-										</TableCell>
+											</TableCell>
+										)}
 										<TableCell align='right'>
 											{row.email}
 										</TableCell>
@@ -130,6 +150,11 @@ const User = () => {
 										</TableCell>
 										<TableCell align='right'>
 											<Button
+												disabled={
+													!permissions.includes(
+														'DELETE'
+													)
+												}
 												onClick={() => {
 													deleteUser(row.id);
 												}}
@@ -146,6 +171,11 @@ const User = () => {
 												onClick={() => {
 													setOpen(true);
 												}}
+												disabled={
+													!permissions.includes(
+														'WRITE'
+													)
+												}
 											>
 												Create New User
 											</Button>
@@ -155,7 +185,20 @@ const User = () => {
 							</TableBody>
 						</Table>
 					</TableContainer>
+				) : (
+					<Card sx={{ maxWidth: '100%' }}>
+						<CardContent>
+							<Typography
+								gutterBottom
+								variant='h4'
+								component='div'
+							>
+								No Permissions to see data
+							</Typography>
+						</CardContent>
+					</Card>
 				)}
+
 				<NewUser
 					open={open}
 					setOpen={setOpen}
